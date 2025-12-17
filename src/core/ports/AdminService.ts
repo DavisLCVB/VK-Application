@@ -1,9 +1,8 @@
 export interface InstanceInfo {
-  server_id: string
+  serverId: string
   provider: 'supabase' | 'gdrive'
-  server_url?: string
-  server_name?: string
-  created_at: string
+  serverUrl?: string
+  serverName?: string
   status?: 'online' | 'offline' | 'unknown'
 }
 
@@ -48,6 +47,6 @@ export interface AdminService {
    */
   updateInstance(
     serverId: string,
-    updates: Partial<Pick<InstanceInfo, 'provider' | 'server_url' | 'server_name'>>
+    updates: Partial<Pick<InstanceInfo, 'provider' | 'serverUrl' | 'serverName'>>
   ): Promise<InstanceInfo>
 }

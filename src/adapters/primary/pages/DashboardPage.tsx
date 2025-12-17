@@ -4,9 +4,11 @@ import { useAuth } from '../contexts/AuthContext'
 import { GetUserFilesUseCase } from '@/core/usecases/GetUserFiles'
 import { FileApiRepository } from '@/adapters/secondary/api/FileApiRepository'
 import { File } from '@/core/domain/File'
+import { User } from '@/core/domain/User'
 import { Button } from '../components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card'
 import { Input } from '../components/ui/input'
+import { UserStatsCard } from '../components/UserStatsCard'
 import {
   Dialog,
   DialogContent,
@@ -89,18 +91,30 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading your files...</div>
+      <div className="flex items-center justify-center min-h-screen bg-[hsl(var(--background))]">
+        <div className="text-lg text-foreground">Loading your files...</div>
       </div>
     )
   }
 
+  const userInstance = user
+    ? User.fromUserInfo(
+        {
+          uid: user.id,
+          file_count: files.length,
+          total_space: 1073741824, // 1GB default
+          used_space: files.reduce((total, file) => total + file.size, 0),
+        },
+        user.email
+      )
+    : null
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen bg-[hsl(var(--background))]">
       <div className="container mx-auto px-4 py-12">
         <div className="flex justify-between items-center mb-12">
           <div>
-            <h1 className="text-4xl font-bold text-slate-900 dark:text-white">Dashboard</h1>
+            <h1 className="text-4xl font-bold text-foreground">Dashboard</h1>
             <p className="text-muted-foreground mt-2">{user?.email}</p>
           </div>
           <div className="flex gap-4">
@@ -114,13 +128,20 @@ export default function DashboardPage() {
         </div>
 
         {error && (
-          <div className="mb-6 text-sm text-destructive p-3 bg-destructive/10 rounded-md max-w-4xl">
+          <div className="mb-6 text-sm text-destructive p-3 bg-destructive/10 rounded-md">
             {error}
           </div>
         )}
 
-        <div className="max-w-6xl">
-          <Card>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Sidebar - Stats Card */}
+          <div className="lg:col-span-1">
+            <UserStatsCard user={userInstance} files={files} />
+          </div>
+
+          {/* Main content - Files List */}
+          <div className="lg:col-span-3">
+            <Card>
             <CardHeader>
               <CardTitle>Your Files</CardTitle>
               <CardDescription>
@@ -179,6 +200,7 @@ export default function DashboardPage() {
               )}
             </CardContent>
           </Card>
+          </div>
         </div>
 
         {/* Edit File Dialog */}

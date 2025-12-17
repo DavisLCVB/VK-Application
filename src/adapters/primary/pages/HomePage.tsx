@@ -34,11 +34,11 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen bg-[hsl(var(--background))]">
       <div className="container mx-auto px-4 py-12">
         <div className="flex justify-between items-center mb-12">
-          <h1 className="text-4xl font-bold text-slate-900 dark:text-white">
-            Vault-Krate File Upload
+          <h1 className="text-4xl font-bold text-foreground">
+            Vault-Krate
           </h1>
           <div className="flex gap-4">
             <Link to="/admin">
@@ -72,7 +72,7 @@ export default function HomePage() {
                   type="file"
                   onChange={handleFileSelect}
                   disabled={uploading}
-                  className="cursor-pointer"
+                  className="cursor-pointer text-sm text-muted-foreground file:border-0 file:bg-transparent file:cursor-pointer file:text-primary file:underline file:underline-offset-2 hover:file:text-primary/80"
                 />
               </div>
 

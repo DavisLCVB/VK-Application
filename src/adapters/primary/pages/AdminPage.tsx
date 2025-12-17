@@ -4,6 +4,7 @@ import { AdminApiService } from '@/adapters/secondary/api/AdminApiService'
 import { InstanceInfo } from '@/core/ports/AdminService'
 import { Button } from '../components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card'
+import { ServerDetailsDialog } from '../components/ServerDetailsDialog'
 import {
   RefreshCw,
   Server,
@@ -25,6 +26,8 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
+  const [selectedServerId, setSelectedServerId] = useState<string | null>(null)
+  const [dialogOpen, setDialogOpen] = useState(false)
 
   const loadInstances = async () => {
     try {
@@ -192,9 +195,14 @@ export default function AdminPage() {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {instances.map((instance) => (
+                  {instances.map((instance, idx) => (
                     <div
-                      key={instance.server_id}
+                      key={
+                        instance.serverId ||
+                        instance.serverUrl ||
+                        instance.serverName ||
+                        `${instance.provider}-${idx}`
+                      }
                       className="flex items-center justify-between p-6 border border-border rounded-lg hover:bg-accent/10 transition-all duration-200 hover:shadow-md hover:border-accent/50"
                     >
                       <div className="flex-1 min-w-0">
@@ -220,40 +228,43 @@ export default function AdminPage() {
                               </span>
                             </div>
                           )}
-                          {instance.server_name && (
+                          {instance.serverName && (
                             <span className="text-sm font-medium text-foreground">
-                              {instance.server_name}
+                              {instance.serverName}
                             </span>
                           )}
                         </div>
                         <div className="space-y-2">
                           <p className="text-xs text-muted-foreground">
                             <span className="font-mono bg-muted px-2 py-0.5 rounded">
-                              {instance.server_id}
+                              {instance.serverId}
                             </span>
                           </p>
-                          {instance.server_url && (
+                          {instance.serverUrl && (
                             <p className="text-xs text-muted-foreground flex items-center gap-2">
                               <span className="font-medium">URL:</span>
                               <a
-                                href={instance.server_url}
+                                href={instance.serverUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="hover:underline text-primary hover:text-primary/80 transition-colors"
                               >
-                                {instance.server_url}
+                                {instance.serverUrl}
                               </a>
                             </p>
                           )}
-                          <p className="text-xs text-muted-foreground flex items-center gap-2">
-                            <Clock className="w-3 h-3" />
-                            <span className="font-medium">Created:</span>
-                            {new Date(instance.created_at).toLocaleString()}
-                          </p>
                         </div>
                       </div>
                       <div className="flex gap-2 ml-4">
-                        <Button variant="outline" size="sm" className="flex items-center gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="flex items-center gap-2"
+                          onClick={() => {
+                            setSelectedServerId(instance.serverId)
+                            setDialogOpen(true)
+                          }}
+                        >
                           <Eye className="w-4 h-4" />
                           View Details
                         </Button>
@@ -310,6 +321,13 @@ export default function AdminPage() {
           </Card>
         </div>
       </div>
+
+      {/* Server Details Dialog */}
+      <ServerDetailsDialog
+        serverId={selectedServerId}
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+      />
     </div>
   )
 }
