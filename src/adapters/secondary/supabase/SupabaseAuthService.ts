@@ -1,5 +1,6 @@
 import { AuthService, AuthUser } from '@/core/ports/AuthService'
 import { supabase } from './client'
+import { config } from '@/infrastructure/config/env'
 
 export class SupabaseAuthService implements AuthService {
   async signUp(email: string, password: string): Promise<AuthUser> {
@@ -46,7 +47,8 @@ export class SupabaseAuthService implements AuthService {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/dashboard`,
+        // Use configured app URL so prod doesn't redirect to localhost
+        redirectTo: `${config.app.url}/auth/callback`,
       },
     })
 

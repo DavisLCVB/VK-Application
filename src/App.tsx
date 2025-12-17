@@ -5,6 +5,7 @@ import HomePage from './adapters/primary/pages/HomePage'
 import FileInfoPage from './adapters/primary/pages/FileInfoPage'
 import DashboardPage from './adapters/primary/pages/DashboardPage'
 import AuthPage from './adapters/primary/pages/AuthPage'
+import AuthCallbackPage from './adapters/primary/pages/AuthCallbackPage'
 import AdminPage from './adapters/primary/pages/AdminPage'
 import ProtectedRoute from './adapters/primary/components/ProtectedRoute'
 
@@ -17,6 +18,7 @@ function AppContent() {
       <Route path="/" element={<HomePage />} />
       <Route path="/file/:fileId" element={<FileInfoPage />} />
       <Route path="/auth" element={<AuthPage />} />
+      <Route path="/auth/callback" element={<AuthCallbackPage />} />
       <Route path="/admin" element={<AdminPage />} />
       <Route
         path="/dashboard"

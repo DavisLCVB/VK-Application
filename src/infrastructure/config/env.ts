@@ -4,10 +4,10 @@ export const config = {
     anonKey: import.meta.env.VITE_SUPABASE_ANON_KEY || '',
   },
   api: {
-    baseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000',
+    baseUrl: import.meta.env.VITE_API_BASE_URL || '',
   },
   app: {
-    url: import.meta.env.VITE_APP_URL || window.location.origin,
+    url: import.meta.env.VITE_APP_URL || ""
   },
   vaultKrateSecret: import.meta.env.VITE_VAULT_KRATE_SECRET || '',
 } as const
@@ -19,6 +19,9 @@ export function validateConfig() {
   if (!config.supabase.url) missing.push('VITE_SUPABASE_URL')
   if (!config.supabase.anonKey) missing.push('VITE_SUPABASE_ANON_KEY')
   if (!config.vaultKrateSecret) missing.push('VITE_VAULT_KRATE_SECRET')
+  if (!config.app.url) missing.push('VITE_APP_URL')
+  if (!config.api.baseUrl) missing.push('VITE_API_BASE_URL')
+
 
   if (missing.length > 0) {
     console.warn(
