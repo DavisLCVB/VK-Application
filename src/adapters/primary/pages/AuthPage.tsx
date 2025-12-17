@@ -48,7 +48,7 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[hsl(var(--background))] flex items-center justify-center px-4">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>{isSignUp ? 'Create Account' : 'Sign In'}</CardTitle>

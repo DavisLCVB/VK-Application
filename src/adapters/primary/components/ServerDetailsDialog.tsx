@@ -144,10 +144,10 @@ export function ServerDetailsDialog({ serverId, open, onOpenChange }: ServerDeta
             </div>
 
             {/* Server Name */}
-            {instance.server_name && (
+            {instance.serverName && (
               <div className="space-y-2">
                 <label className="text-sm font-medium text-muted-foreground">Server Name</label>
-                <p className="text-lg font-semibold">{instance.server_name}</p>
+                <p className="text-lg font-semibold">{instance.serverName}</p>
               </div>
             )}
 
@@ -156,12 +156,12 @@ export function ServerDetailsDialog({ serverId, open, onOpenChange }: ServerDeta
               <label className="text-sm font-medium text-muted-foreground">Server ID</label>
               <div className="flex items-center gap-2">
                 <code className="flex-1 px-3 py-2 bg-muted rounded font-mono text-sm">
-                  {instance.server_id}
+                  {instance.serverId}
                 </code>
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => copyToClipboard(instance.server_id)}
+                  onClick={() => copyToClipboard(instance.serverId)}
                   className="flex items-center gap-2"
                 >
                   <Copy className="w-4 h-4" />
@@ -171,7 +171,7 @@ export function ServerDetailsDialog({ serverId, open, onOpenChange }: ServerDeta
             </div>
 
             {/* Server URL */}
-            {instance.server_url && (
+            {instance.serverUrl && (
               <div className="space-y-2">
                 <label className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                   <LinkIcon className="w-4 h-4" />
@@ -179,17 +179,17 @@ export function ServerDetailsDialog({ serverId, open, onOpenChange }: ServerDeta
                 </label>
                 <div className="flex items-center gap-2">
                   <a
-                    href={instance.server_url}
+                    href={instance.serverUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 px-3 py-2 bg-muted rounded text-sm hover:bg-accent transition-colors text-primary hover:underline"
                   >
-                    {instance.server_url}
+                    {instance.serverUrl}
                   </a>
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => window.open(instance.server_url, '_blank')}
+                    onClick={() => window.open(instance.serverUrl, '_blank')}
                     className="flex items-center gap-2"
                   >
                     <ExternalLink className="w-4 h-4" />
@@ -211,7 +211,6 @@ export function ServerDetailsDialog({ serverId, open, onOpenChange }: ServerDeta
                 <Clock className="w-4 h-4" />
                 Created At
               </label>
-              <p className="text-sm">{new Date(instance.created_at).toLocaleString()}</p>
             </div>
 
             {/* Health Status */}
@@ -221,11 +220,10 @@ export function ServerDetailsDialog({ serverId, open, onOpenChange }: ServerDeta
                 <div className="flex items-center justify-between">
                   <span className="text-sm">Current Status</span>
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      instance.status === 'online'
-                        ? 'bg-[hsl(var(--green))]/20 text-[hsl(var(--green))]'
-                        : 'bg-[hsl(var(--destructive))]/20 text-[hsl(var(--destructive))]'
-                    }`}
+                    className={`px-3 py-1 rounded-full text-xs font-medium ${instance.status === 'online'
+                      ? 'bg-[hsl(var(--green))]/20 text-[hsl(var(--green))]'
+                      : 'bg-[hsl(var(--destructive))]/20 text-[hsl(var(--destructive))]'
+                      }`}
                   >
                     {instance.status || 'Unknown'}
                   </span>
@@ -238,9 +236,9 @@ export function ServerDetailsDialog({ serverId, open, onOpenChange }: ServerDeta
               <Button variant="outline" onClick={() => onOpenChange(false)}>
                 Close
               </Button>
-              {instance.server_url && (
+              {instance.serverUrl && (
                 <Button
-                  onClick={() => window.open(instance.server_url, '_blank')}
+                  onClick={() => window.open(instance.serverUrl, '_blank')}
                   className="flex items-center gap-2"
                 >
                   <ExternalLink className="w-4 h-4" />
