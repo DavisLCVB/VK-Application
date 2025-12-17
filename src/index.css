@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Catppuccin Mocha Theme */
+    --background: 234 19% 15%;        /* base #1e1e2e */
+    --foreground: 227 70% 87%;        /* text #cdd6f4 */
+    --card: 237 16% 23%;              /* surface0 #313244 */
+    --card-foreground: 227 70% 87%;   /* text */
+    --popover: 234 13% 31%;           /* surface1 #45475a */
+    --popover-foreground: 227 70% 87%; /* text */
+    --primary: 217 92% 76%;           /* blue #89b4fa */
+    --primary-foreground: 234 19% 15%; /* base */
+    --secondary: 267 84% 81%;         /* mauve #cba6f7 */
+    --secondary-foreground: 234 19% 15%; /* base */
+    --muted: 233 12% 39%;             /* surface2 #585b70 */
+    --muted-foreground: 228 16% 73%;  /* subtext0 #a6adc8 */
+    --accent: 199 76% 69%;            /* sapphire #74c7ec */
+    --accent-foreground: 234 19% 15%; /* base */
+    --destructive: 343 81% 75%;       /* red #f38ba8 */
+    --destructive-foreground: 227 70% 87%; /* text */
+    --border: 234 13% 31%;            /* surface1 */
+    --input: 233 12% 39%;             /* surface2 */
+    --ring: 217 92% 76%;              /* blue */
+    --radius: 0.5rem;
+
+    /* Additional Catppuccin Mocha colors */
+    --green: 115 54% 76%;             /* green #a6e3a1 */
+    --yellow: 41 86% 83%;             /* yellow #f9e2af */
+    --peach: 23 92% 75%;              /* peach #fab387 */
+    --teal: 170 57% 73%;              /* teal #94e2d5 */
+    --lavender: 232 97% 85%;          /* lavender #b4befe */
+  }
+
+  .dark {
+    /* Catppuccin Mocha is dark by default */
+    --background: 234 19% 15%;
+    --foreground: 227 70% 87%;
+    --card: 237 16% 23%;
+    --card-foreground: 227 70% 87%;
+    --popover: 234 13% 31%;
+    --popover-foreground: 227 70% 87%;
+    --primary: 217 92% 76%;
+    --primary-foreground: 234 19% 15%;
+    --secondary: 267 84% 81%;
+    --secondary-foreground: 234 19% 15%;
+    --muted: 233 12% 39%;
+    --muted-foreground: 228 16% 73%;
+    --accent: 199 76% 69%;
+    --accent-foreground: 234 19% 15%;
+    --destructive: 343 81% 75%;
+    --destructive-foreground: 227 70% 87%;
+    --border: 234 13% 31%;
+    --input: 233 12% 39%;
+    --ring: 217 92% 76%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
